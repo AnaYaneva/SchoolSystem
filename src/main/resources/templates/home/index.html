@@ -1,0 +1,17 @@
+<main>
+    <div class="container body-content"  style="margin-top:40px;">
+        <div class="row">
+            <div class="col-md-6" th:each="subject : ${subjects}">
+                    <div class="card image-container text-center"  style="margin:20px;">
+                        <img class="card-img-top" src="/images/bootstrap-themes/card.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="col-sm-12 text-center card-title" th:text="${subject.name + ' (' + #sets.size(subject.lessons) + ')'}"></h4>
+                            <p class="col-sm-12 text-center card-text"th:text="${subject.description}"></p>
+                            <a th:href="@{/subject/{id}(id=${subject.id})}" class="col-sm-6 center btn btn-warning">Go somewhere
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>

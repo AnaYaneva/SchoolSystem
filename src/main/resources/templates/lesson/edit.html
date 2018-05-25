@@ -1,0 +1,48 @@
+<main>
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal" th:action="@{/lesson/edit/{id}(id=${lesson.id})}" method="POST">
+                <fieldset>
+                    <legend>Edit Post</legend>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="lesson_title">Post Title</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="lesson_title" placeholder="Post Title" name="title" th:value="${lesson.title}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="lesson_content">Content</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" rows="6" id="lesson_content" name="content" th:field="${lesson.content}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="lesson_subject">Category</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="lesson_subject" name="subjectId">
+                                <option th:each="subject : ${categories}" th:value="${subject.id}" th:text="${subject.name}"  th:selected="${subject.id == lesson.subject.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="lesson_tags">Tags</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="lesson_tags" placeholder="Tags" name="tagString" th:value="${tags}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-default" th:href="@{/lesson/{id}(id = ${lesson.id})}">Cancel</a>
+                            <input type="submit" class="btn btn-success" value="Edit"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>

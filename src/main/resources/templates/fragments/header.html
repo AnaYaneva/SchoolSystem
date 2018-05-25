@@ -1,0 +1,142 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-warning" th:fragment="header">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" th:href="@{/}">Navbar</a>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">
+                    Home
+                </a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasRole('TEACHER')">
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle btn-warning" data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        Teacher Panel
+                    </button>
+                    <div class="dropdown-menu" x-placement="bottom-start">
+                        <a class="nav-link" th:href="@{/lesson/create}">
+                            Lessons
+                        </a>
+                        <a class="nav-link" th:href="@{/lesson/create}">
+                            Create lesson
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle btn-warning" data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        Admin Panel
+                    </button>
+                    <div class="dropdown-menu" x-placement="bottom-start">
+                        <a class="nav-link" th:href="@{/admin/subject/create}">
+                            Create subject
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/subject/}">
+                            Subjects
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="nav-link" th:href="@{/admin/users/}">
+                            Users
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+            </li>
+
+            <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/profile}">
+                        My Profile
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">
+                        Logout
+                    </a>
+                </li>
+            </th:block>
+
+            <th:block th:if="${session.user == null}">
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}">
+                        REGISTER
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}">
+                        LOGIN
+                    </a>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</nav>
+<!--<header  th:fragment="header">
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a th:href="@{/}" class="navbar-brand">BLOG</a>
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" sec:authorize="hasRole('ADMIN')">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">Admin<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:href="@{/admin/categories/}">Categories</a></li>
+                            <li><a th:href="@{/admin/users/}">Users</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/lesson/create}">
+                            Create Article
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/profile}">
+                            My Profile
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">
+                            Logout
+                        </a>
+                    </li>
+
+                    <li sec:authorize="isAnonymous()">
+                        <a th:href="@{/register}">
+                            REGISTER
+                        </a>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}">
+                            LOGIN
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>-->

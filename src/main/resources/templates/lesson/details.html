@@ -1,0 +1,34 @@
+<main>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-12">
+                <lesson>
+                    <header>
+                        <h2 th:text="${lesson.title}"></h2>
+                    </header>
+
+                    <p th:text="${lesson.content}"> </p>
+
+                    <small class="author" th:text="${lesson.author.fullName}"></small>
+
+                    <p>
+                        <a class="btn btn-default btn-xs" th:each="tag:${lesson.tags}" th:href="@{/tag/{name}(name=${tag.name})}" th:text="${tag.name}"></a>
+                    </p>
+
+                    <footer>
+
+                        <div class="pull-right">
+
+                            <th:block sec:authorize="isAuthenticated()" th:if="${user.isAdmin() OR user.isAuthor(lesson)}">
+                            <a class="btn btn-success btn-xs" th:href="@{/lesson/edit/{id}(id = ${lesson.id})}">Edit</a>
+                            <a class="btn btn-danger btn-xs" th:href="@{/lesson/delete/{id}(id = ${lesson.id})}">Delete</a>
+                            </th:block>
+
+                            <a class="btn btn-default btn-xs" th:href="@{/}">back &raquo;</a>
+                        </div>
+                    </footer>
+                </lesson>
+            </div>
+        </div>
+    </div>
+</main>
