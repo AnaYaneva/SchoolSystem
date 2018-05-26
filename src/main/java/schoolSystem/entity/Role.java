@@ -5,6 +5,8 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "roles")
@@ -17,7 +19,7 @@ public class Role {
     private Set<User> users;
 
     public Role() {
-        this.users = new HashSet<>();
+        this.users = new TreeSet<>();
     }
 
     @Id

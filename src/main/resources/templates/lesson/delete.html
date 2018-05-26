@@ -3,12 +3,12 @@
         <div class="well">
             <form class="form-horizontal" th:action="@{/lesson/delete/{id}(id=${lesson.id})}" method="POST">
                 <fieldset>
-                    <legend>Delete Post</legend>
+                    <legend>Delete Lesson</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="lesson_title">Post Title</label>
+                        <label class="col-sm-4 control-label" for="lesson_title">Lesson Title</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="lesson_title" placeholder="Post Title" name="title" th:value="${lesson.title}" disabled="disabled"/>
+                            <input type="text" class="form-control" id="lesson_title" placeholder="Lesson Title" name="title" th:value="${lesson.title}" disabled="disabled"/>
                         </div>
                     </div>
 

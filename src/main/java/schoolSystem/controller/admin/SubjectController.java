@@ -2,6 +2,7 @@ package schoolSystem.controller.admin;
 
 import schoolSystem.annotations.PreAuthenticate;
 import schoolSystem.bindingModel.SubjectBindingModel;
+import schoolSystem.entity.Constants;
 import schoolSystem.entity.Lesson;
 import schoolSystem.entity.Subject;
 import schoolSystem.repository.LessonRepository;
@@ -30,7 +31,7 @@ public class SubjectController {
     private LessonRepository lessonRepository;
 
     @GetMapping("/")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
     public String list(Model model) {
         List<Subject> subjects = this.subjectRepository.findAll();
 
@@ -41,25 +42,25 @@ public class SubjectController {
         model.addAttribute("subjects", subjects);
         model.addAttribute("view", "admin/subject/list");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @GetMapping("/create")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
     public String create(Model model) {
         model.addAttribute("view", "admin/subject/create");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/create")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
     public String createProcess(SubjectBindingModel subjectBindingModel) {
         if (StringUtils.isEmpty((subjectBindingModel.getName()))) {
             return "redirect:/admin/subject/create";
         }
 
-        Subject subject =new Subject(subjectBindingModel.getName(),subjectBindingModel.getDescription());
+        Subject subject = new Subject(subjectBindingModel.getName(), subjectBindingModel.getDescription());
 
         this.subjectRepository.saveAndFlush(subject);
 
@@ -68,25 +69,25 @@ public class SubjectController {
 
 
     @GetMapping("/edit/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
-    public String edit(Model model,@PathVariable Integer id){
-        if(!this.subjectRepository.existsById(id)){
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
+    public String edit(Model model, @PathVariable Integer id) {
+        if (!this.subjectRepository.existsById(id)) {
             return "redirect:/admin/subject/";
         }
 
-        Subject subject =this.subjectRepository.getOne(id);
+        Subject subject = this.subjectRepository.getOne(id);
 
         model.addAttribute("subject", subject);
         model.addAttribute("view", "admin/subject/edit");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/edit/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
     public String editProcess(@PathVariable Integer id,
-                              SubjectBindingModel subjectBindingModel){
-        if(!this.subjectRepository.existsById(id)){
+                              SubjectBindingModel subjectBindingModel) {
+        if (!this.subjectRepository.existsById(id)) {
             return "redirect:/admin/subject/";
         }
 
@@ -101,9 +102,9 @@ public class SubjectController {
     }
 
     @GetMapping("/delete/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
-    public String delete(Model model, @PathVariable Integer id){
-        if(!this.subjectRepository.existsById(id)){
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
+    public String delete(Model model, @PathVariable Integer id) {
+        if (!this.subjectRepository.existsById(id)) {
             return "redirect:/admin/subject/";
         }
 
@@ -112,18 +113,18 @@ public class SubjectController {
         model.addAttribute("subject", subject);
         model.addAttribute("view", "admin/subject/delete");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/delete/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "ADMIN")
-    public String deleteProcess(@PathVariable Integer id){
-        if(!this.subjectRepository.existsById(id)){
+    @PreAuthenticate(loggedIn = true, inRole = Constants.ADMIN)
+    public String deleteProcess(@PathVariable Integer id) {
+        if (!this.subjectRepository.existsById(id)) {
             return "redirect:/admin/subject/";
         }
         Subject subject = this.subjectRepository.getOne(id);
 
-        for(Lesson lesson : subject.getLessons()){
+        for (Lesson lesson : subject.getLessons()) {
             this.lessonRepository.delete(lesson);
         }
 

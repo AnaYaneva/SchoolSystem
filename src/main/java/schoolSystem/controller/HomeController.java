@@ -1,5 +1,7 @@
 package schoolSystem.controller;
 
+import schoolSystem.annotations.PreAuthenticate;
+import schoolSystem.entity.Constants;
 import schoolSystem.entity.Subject;
 import schoolSystem.entity.Lesson;
 import schoolSystem.repository.SubjectRepository;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import schoolSystem.repository.LessonRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class HomeController {
@@ -35,25 +36,26 @@ public class HomeController {
     }
 
    @GetMapping("/subject/{id}")
+   @PreAuthenticate(loggedIn = true)
     public String listArticles(Model model, @PathVariable Integer id){
         if (!this.subjectRepository.existsById(id)){
             return "redirect:/";
         }
 
         Subject subject =this.subjectRepository.getOne(id);
-        Set<Lesson> lessons = subject.getLessons();
+        List<Lesson> lessons = subject.getLessons();
 
-        model.addAttribute("tests", lessons);
+        model.addAttribute("lessons", lessons);
         model.addAttribute("subject", subject);
         model.addAttribute("view", "home/list-lessons");
 
-        return "base-layout";
+       return Constants.BASE_LAYOUT;
     }
 
      @RequestMapping("/error/403")
     public String accessDenied(Model model){
         model.addAttribute("view", "error/403");
 
-        return "base-layout";
+         return Constants.BASE_LAYOUT;
     }
 }

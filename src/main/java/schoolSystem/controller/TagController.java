@@ -1,5 +1,7 @@
 package schoolSystem.controller;
 
+import schoolSystem.annotations.PreAuthenticate;
+import schoolSystem.entity.Constants;
 import schoolSystem.entity.Tag;
 import schoolSystem.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +16,17 @@ public class TagController {
     private TagRepository tagRepository;
 
     @GetMapping("/tag/{name}")
-    public String articleWithTag(Model model, @PathVariable String name){
-        Tag tag=this.tagRepository.findByName(name);
+    @PreAuthenticate(loggedIn = true)
+    public String articleWithTag(Model model, @PathVariable String name) {
+        Tag tag = this.tagRepository.findByName(name);
 
-        if(tag==null){
+        if (tag == null) {
             return "redirect:/";
         }
 
         model.addAttribute("view", "tag/lessons");
         model.addAttribute("tag", tag);
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 }

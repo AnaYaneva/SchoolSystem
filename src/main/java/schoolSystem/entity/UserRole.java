@@ -1,9 +1,9 @@
 package schoolSystem.entity;
 
 public enum UserRole {
-    USER ("USER"),
-    TEACHER ("TEACHER"),
-    ADMIN ("ADMIN");
+    USER (Constants.USER),
+    TEACHER (Constants.TEACHER),
+    ADMIN (Constants.ADMIN);
 
     private final String name;
 
@@ -15,4 +15,6 @@ public enum UserRole {
         // (otherName == null) check is not needed because name.equals(null) returns false
         return name.equals(otherName);
     }
+
 }
+

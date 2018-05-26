@@ -90,6 +90,9 @@ public class Lesson {
 
     @Transient
     public String getSummary(){
-        return this.getContent().substring(0, this.getContent().length() / 2) + "...";
+
+        return this.getContent().length()<180?
+                this.getContent().substring(0, this.getContent().length() - 20) + "...":
+                this.getContent().substring(0, 180) + "...";
     }
 }

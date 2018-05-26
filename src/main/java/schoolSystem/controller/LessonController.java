@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import schoolSystem.annotations.PreAuthenticate;
 import schoolSystem.bindingModel.LessonBindingModel;
-import schoolSystem.entity.Lesson;
-import schoolSystem.entity.Subject;
-import schoolSystem.entity.Tag;
-import schoolSystem.entity.User;
+
+import schoolSystem.entity.*;
 import schoolSystem.repository.SubjectRepository;
 import schoolSystem.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +37,20 @@ public class LessonController {
     @Autowired
     private TagRepository tagRepository;
 
+
     @GetMapping("/lesson/create")
-    @PreAuthenticate(loggedIn = true, inRole = "TEACHER")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.TEACHER)
     public String create(Model model) {
         List<Subject> subjects = this.subjectRepository.findAll();
 
         model.addAttribute("subjects", subjects);
         model.addAttribute("view", "lesson/create");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/lesson/create")
-    @PreAuthenticate(loggedIn = true, inRole = "TEACHER")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.TEACHER)
     public String createProcess(LessonBindingModel lessonBindingModel) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -95,11 +94,11 @@ public class LessonController {
         model.addAttribute("lesson", lesson);
         model.addAttribute("view", "lesson/details");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @GetMapping("/lesson/edit/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "TEACHER")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.TEACHER)
     public String edit(@PathVariable Integer id, Model model) {
         if (!this.lessonRepository.existsById(id)) {
             return "redirect:/";
@@ -121,11 +120,11 @@ public class LessonController {
         model.addAttribute("subjects", subjects);
         model.addAttribute("tags", tagString);
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/lesson/edit/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "TEACHER")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.TEACHER)
     public String editProcess(@PathVariable Integer id, LessonBindingModel lessonBindingModel) {
         if (!this.lessonRepository.existsById(id)) {
             return "redirect:/";
@@ -151,7 +150,7 @@ public class LessonController {
     }
 
     @GetMapping("/lesson/delete/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "TEACHER")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.TEACHER)
     public String delete(Model model, @PathVariable Integer id) {
         if (!this.lessonRepository.existsById(id)) {
             return "redirect:/";
@@ -166,11 +165,11 @@ public class LessonController {
         model.addAttribute("lesson", lesson);
         model.addAttribute("view", "lesson/delete");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/lesson/delete/{id}")
-    @PreAuthenticate(loggedIn = true, inRole = "TEACHER")
+    @PreAuthenticate(loggedIn = true, inRole = Constants.TEACHER)
     public String deleteProcess(@PathVariable Integer id) {
         if (!this.lessonRepository.existsById(id)) {
             return "redirect:/";

@@ -2,10 +2,26 @@
     <div class="container body-container">
         <div class="row">
             <div id="main" class="col-sm-9">
-                <div>
-                    <span th:text="${user.email}"></span>
-                    <br/>
-                    <span th:text="${user.fullName}"></span>
+                <div style="margin: 150px">
+                    <h4 style="margin: 20px">Your Profile</h4>
+                    <table class="table table-hover table-warning">
+                        <tbody>
+                        <tr>
+                            <td>Email:</td>
+                            <td th:text="${user.email}"></td>
+                        </tr>
+                        <tr>
+                            <td>Full Name:</td>
+                            <td th:text="${user.fullName}"></td>
+                        </tr>
+                        <tr>
+                            <td>Roles:</td>
+                            <th:block th:each="role : ${roles}">
+                                <td th:text="${role}"></td>
+                            </th:block>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" th:href="@{/}">Navbar</a>
+    <a class="navbar-brand" th:href="@{/}">SchoolSystem</a>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-md-0">
@@ -22,9 +22,6 @@
                         Teacher Panel
                     </button>
                     <div class="dropdown-menu" x-placement="bottom-start">
-                        <a class="nav-link" th:href="@{/lesson/create}">
-                            Lessons
-                        </a>
                         <a class="nav-link" th:href="@{/lesson/create}">
                             Create lesson
                         </a>
@@ -48,7 +45,13 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="nav-link" th:href="@{/admin/users/}">
-                            Users
+                            All Users
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/users/students}">
+                            Students
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/users/teachers}">
+                            Teachers
                         </a>
                     </div>
                 </div>

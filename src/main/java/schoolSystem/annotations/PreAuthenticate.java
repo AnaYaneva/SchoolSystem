@@ -1,5 +1,7 @@
 package schoolSystem.annotations;
 
+import schoolSystem.entity.Constants;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,5 +13,5 @@ public @interface PreAuthenticate {
 
     boolean loggedIn() default false;
 
-    String inRole() default "USER";
+    String inRole() default Constants.USER;
 }

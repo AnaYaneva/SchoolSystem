@@ -6,19 +6,19 @@
                 <table class="table table-striped table-hover ">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>Full Name</th>
                         <th>Email</th>
+                        <th>Roles</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-
                     <th:block th:each="user : ${users}">
                         <tr th:class="${user.isAdmin() ? 'info' : null}">
-                            <td th:text="${user.id}"></td>
                             <td th:text="${user.fullName}"></td>
                             <td th:text="${user.email}"></td>
+
+                            <td th:text="${user.roles[0].getSimpleName()}"></td>
                             <td>
                                 <a th:href="@{/admin/users/edit/{id}(id=${user.id})}">Edit</a>
                                 <a th:href="@{/admin/users/delete/{id}(id=${user.id})}">Delete</a>

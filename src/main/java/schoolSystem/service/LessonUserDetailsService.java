@@ -12,7 +12,7 @@ import schoolSystem.repository.UserRepository;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service("blogUserDetailsService")
+@Service("lessonUserDetailsService")
 public class LessonUserDetailsService implements UserDetailsService{
     private final UserRepository userRepository;
 

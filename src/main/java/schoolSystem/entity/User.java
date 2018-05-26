@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "users")
@@ -26,7 +27,7 @@ public class User {
         this.password = password;
         this.fullName = fullName;
 
-        this.roles = new HashSet<>();
+        this.roles = new TreeSet<>();
         this.lessons = new HashSet<>();
     }
 

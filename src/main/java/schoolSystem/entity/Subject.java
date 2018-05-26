@@ -1,8 +1,8 @@
 package schoolSystem.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "subjects")
@@ -13,7 +13,7 @@ public class Subject {
 
     private String description;
 
-    private Set<Lesson> lessons;
+    private List<Lesson> lessons;
 
     private byte[] pic;
 
@@ -23,7 +23,7 @@ public class Subject {
     public Subject(String name, String description) {
         this.description=description;
         this.name = name;
-        this.lessons = new HashSet<>();
+        this.lessons = new ArrayList<>();
     }
 
     @Id
@@ -46,11 +46,11 @@ public class Subject {
     }
 
     @OneToMany(mappedBy = "subject")
-    public Set<Lesson> getLessons() {
+    public List<Lesson> getLessons() {
         return this.lessons;
     }
 
-    public void setLessons(Set<Lesson> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
 

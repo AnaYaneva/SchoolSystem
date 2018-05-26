@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import schoolSystem.bindingModel.UserBindingModel;
+import schoolSystem.entity.Constants;
 import schoolSystem.entity.Role;
 import schoolSystem.entity.User;
 import schoolSystem.repository.RoleRepository;
 import schoolSystem.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -34,13 +38,13 @@ public class UserController {
     public String register(Model model) {
         model.addAttribute("view", "user/register");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
     @PostMapping("/register")
-    public String registerProcess(UserBindingModel userBindingModel){
+    public String registerProcess(UserBindingModel userBindingModel) {
 
-        if(!userBindingModel.getPassword().equals(userBindingModel.getConfirmPassword())){
+        if (!userBindingModel.getPassword().equals(userBindingModel.getConfirmPassword())) {
             return "redirect:/register";
         }
 
@@ -52,13 +56,13 @@ public class UserController {
                 bCryptPasswordEncoder.encode(userBindingModel.getPassword())
         );
 
-        Role userRole=this.roleRepository.findByName("ROLE_USER");
-        if (userRole==null){
-            Role userR=new Role();
+        Role userRole = this.roleRepository.findByName("ROLE_USER");
+        if (userRole == null) {
+            Role userR = new Role();
             userR.setName("ROLE_USER");
             this.roleRepository.saveAndFlush(userR);
 
-            userRole=this.roleRepository.findByName("ROLE_USER");
+            userRole = this.roleRepository.findByName("ROLE_USER");
         }
 
         user.addRole(userRole);
@@ -69,14 +73,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model){
+    public String login(Model model) {
         model.addAttribute("view", "user/login");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
@@ -88,17 +92,24 @@ public class UserController {
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public String profilePage(Model model){
+    public String profilePage(Model model) {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
 
         User user = this.userRepository.findByEmail(principal.getUsername());
+        Set<Role> roles = user.getRoles();
+        List<String> userRoles = new ArrayList<>();
+        for (Role role :
+                roles) {
+            userRoles.add(role.getSimpleName());
+        }
 
+        model.addAttribute("roles", userRoles);
         model.addAttribute("user", user);
         model.addAttribute("view", "user/profile");
 
-        return "base-layout";
+        return Constants.BASE_LAYOUT;
     }
 }
 

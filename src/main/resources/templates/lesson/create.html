@@ -3,12 +3,12 @@
         <div class="well">
             <form class="form-horizontal" th:action="@{/lesson/create}" method="POST">
                 <fieldset>
-                    <legend>New Post</legend>
+                    <legend>New Lesson</legend>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="lesson_title">Article Title</label>
+                        <label class="col-sm-4 control-label" for="lesson_title">Lesson Title</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="lesson_title" placeholder="Article Title"
+                            <input type="text" class="form-control" id="lesson_title" placeholder="Lesson Title"
                                    name="title"/>
                         </div>
                     </div>
@@ -21,10 +21,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="lesson_subject">Category</label>
+                        <label class="col-sm-4 control-label" for="lesson_subject">Subject</label>
                         <div class="col-sm-6">
                             <select class="form-control" id="lesson_subject" name="subjectId">
-                                <option th:each="subject : ${categories}" th:value="${subject.id}" th:text="${subject.name}"></option>
+                                <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}"></option>
                             </select>
                         </div>
                     </div>
